@@ -6,12 +6,23 @@ from stats import (
 )
 
 
+def print_report(book_path: str, word_count: int, sorted_char_counts: list[tuple[str, int]]) -> None:
+    print("============ BOOKBOT ============")
+    print(f"Analyzing book found at {book_path}...")
+    print("----------- Word Count ----------")
+    print(f"Found {word_count} total words")
+    print("--------- Character Count -------")
+    for pair in sorted_char_counts:
+        if pair[0].isalpha():
+            print(f"{pair[0]}: {pair[1]}")
+    print("============= END ===============")
+
 def main():
-    file_contents = get_book_text("books/frankenstein.txt")
+    book_path = "books/frankenstein.txt"
+    file_contents = get_book_text(book_path)
     word_count = get_word_count(file_contents)
-    print(f"Found {word_count} total words.")
     character_counts = get_character_counts(file_contents)
-    sorted_chars_count = chars_dict_to_sorted_list(character_counts)
-    print(sorted_chars_count)
+    sorted_chars_counts = chars_dict_to_sorted_list(character_counts)
+    print_report(book_path, word_count, sorted_chars_counts)
 
 main()
